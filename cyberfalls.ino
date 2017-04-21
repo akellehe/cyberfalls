@@ -55,7 +55,7 @@ void setup() {
   for (uint16_t drop_no=0; drop_no < N_STRIPS; drop_no++){
     drops[drop_no].pin = drop_no + MIN_PIN;
     drops[drop_no].falling = false;
-    drops[drop_no].x = 0;
+    drops[drop_no].x = -random(0,50);
   }
 }
 
@@ -138,7 +138,7 @@ void extinguish(uint16_t drop_no) {
   }
   strip.show();
   drops[drop_no].falling = false;
-  drops[drop_no].x = 0;
+  drops[drop_no].x = -random(0, 50);
 }
 
 bool still_falling() {
@@ -172,9 +172,7 @@ static void fall() {
       if (drops[drop_no].falling) {
         drops[drop_no].x = drops[drop_no].x + 5. * pow(t, 2.);
         illuminate(drop_no);
-        if (drops[drop_no].x > FALL_LENGTH) {
-          extinguish(drop_no);
-        }
+        if (drops[drop_no].x > FALL_LENGTH) extinguish(drop_no);
       }
     }
     t += 0.05;
